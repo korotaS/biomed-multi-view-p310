@@ -51,6 +51,7 @@ class FinetuneCLI(LightningCLI):
 
         if (
             self.subcommand != "test"
+            and config["ckpt_path"]
             and os.path.exists(os.path.dirname(config["ckpt_path"]))
             and "last" not in os.path.basename(config["ckpt_path"])
         ):
