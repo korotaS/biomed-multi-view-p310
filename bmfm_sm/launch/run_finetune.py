@@ -7,6 +7,7 @@ from pathlib import Path
 
 import click
 from omegaconf import OmegaConf
+from clearml import Task
 
 # Needs to be set before PyTorch imports
 if sys.platform == "darwin":
@@ -218,6 +219,8 @@ def main(model, dataset_group, split_strategy, dataset, mode, override):
     resolved_config_path = outputs_dir / "resolved_config.yaml"
     OmegaConf.save(config, resolved_config_path)
     logging.info(f"Resolved config saved to {resolved_config_path}")
+
+    task = Task.init(project_name='Hackathon', task_name=expt_name)
 
     cli_args = [mode, "--config", str(resolved_config_path)]
     sys.argv = [sys.argv[0]] + cli_args
