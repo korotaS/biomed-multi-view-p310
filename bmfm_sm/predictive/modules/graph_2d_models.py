@@ -1952,15 +1952,15 @@ class MultiheadAttention(nn.Module):
     def forward(
         self,
         query,
-        key: T.Tensor | None,
-        value: T.Tensor | None,
-        attn_bias: T.Tensor | None,
-        key_padding_mask: T.Tensor | None = None,
+        key: T.Tensor,
+        value: T.Tensor,
+        attn_bias: T.Tensor,
+        key_padding_mask: T.Tensor = None,
         need_weights: bool = True,
-        attn_mask: T.Tensor | None = None,
+        attn_mask: T.Tensor = None,
         before_softmax: bool = False,
         need_head_weights: bool = False,
-    ) -> tuple[T.Tensor, T.Tensor | None]:
+    ) -> tuple[T.Tensor, T.Tensor]:
         """
         Input shape: Time x Batch x Channel
         Args:
@@ -2050,7 +2050,7 @@ class MultiheadAttention(nn.Module):
         attn = self.out_proj(attn)
         attn = self.dropout_module(attn)
 
-        attn_weights: T.Tensor | None = None
+        attn_weights: T.Tensor = None
         if need_weights:
             attn_weights = attn_weights_float.view(
                 bsz, self.num_heads, tgt_len, src_len
@@ -2286,10 +2286,10 @@ class SelfAttn(nn.Module):
 
 
 class Batch:
-    indices: None | T.LongTensor
+    indices: T.LongTensor
     values: T.Tensor
     n_nodes: list
-    n_edges: None | list
+    n_edges: list
     device: T.device
     mask: T.BoolTensor
     node_mask: T.BoolTensor
@@ -2297,10 +2297,10 @@ class Batch:
 
     def __init__(
         self,
-        indices: None | T.LongTensor,
+        indices: T.LongTensor,
         values: T.Tensor,
         n_nodes: list,
-        n_edges: None | list,
+        n_edges: list,
         mask: T.BoolTensor = None,
         skip_masking: bool = False,
         node_mask: T.BoolTensor = None,
@@ -2350,7 +2350,7 @@ class Batch:
     def __repr__(self):
         return f"Batch(indices {list(self.indices.size())}, values {list(self.values.size())}"
 
-    def to(self, device: str | T.device) -> "Batch":
+    def to(self, device: T.device) -> "Batch":
         if self.indices is not None:
             self.indices = self.indices.to(device)
         self.values = self.values.to(device)
@@ -2366,14 +2366,14 @@ class Batch:
 
 
 def apply(
-    G: T.Tensor | Batch, f: Callable[[T.Tensor], T.Tensor], skip_masking=False
-) -> T.Tensor | Batch:
+    G: T.Tensor, f: Callable[[T.Tensor], T.Tensor], skip_masking=False
+) -> T.Tensor:
     if isinstance(G, T.Tensor):
         return f(G)
     return batch_like(G, f(G.values), skip_masking)
 
 
-def add_batch(G1: T.Tensor | Batch, G2: T.Tensor | Batch) -> T.Tensor | Batch:
+def add_batch(G1: T.Tensor, G2: T.Tensor) -> T.Tensor:
     # add features of two batched graphs with identical edge structures
     if isinstance(G1, Batch) and isinstance(G2, Batch):
         assert G1.order == G2.order

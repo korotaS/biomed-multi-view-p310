@@ -17,7 +17,7 @@ class OpLookupTargetEmbedding(OpBase):
         )
 
     def __call__(
-        self, sample_dict: NDict, key_in, key_out, prefix: str | None = None
+        self, sample_dict: NDict, key_in, key_out, prefix: str = None
     ) -> NDict:
         the_id = sample_dict[key_in]
         sample_dict[key_out] = np.vstack(
@@ -51,7 +51,7 @@ class OpRandomTargetEmbedding(OpBase):
         )
 
     def __call__(
-        self, sample_dict: NDict, key_in, key_out, prefix: str | None = None
+        self, sample_dict: NDict, key_in, key_out, prefix: str = None
     ) -> NDict:
         the_id = sample_dict[key_in]
         sample_dict[key_out] = np.expand_dims(
@@ -97,7 +97,7 @@ class OpPermutationTargetEmbedding(OpBase):
                     return np.array(v)
 
     def __call__(
-        self, sample_dict: NDict, key_in, key_out, prefix: str | None = None
+        self, sample_dict: NDict, key_in, key_out, prefix: str = None
     ) -> NDict:
         the_id = sample_dict[key_in]
         sample_dict[key_out] = np.expand_dims(

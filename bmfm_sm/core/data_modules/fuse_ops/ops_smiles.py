@@ -62,7 +62,7 @@ class OpGenerateRDKitDescriptors(OpBase):
 
 
 # Utility function for permutation generation
-def standardise(smiles: str, canonicalise: bool | None = False) -> str | None:
+def standardise(smiles: str, canonicalise: bool = False) -> str:
     """
     Standardise a SMILES string if valid (canonical + kekulized)
     Returns: standard version the SMILES if valid, None otherwise.

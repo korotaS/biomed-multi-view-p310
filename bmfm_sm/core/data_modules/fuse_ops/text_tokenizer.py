@@ -42,7 +42,7 @@ class TextTokenizer(BertTokenizer):
         return split_tokens
 
     def build_inputs_with_special_tokens(
-        self, token_ids_0: list[int], token_ids_1: list[int] | None = None
+        self, token_ids_0: list[int], token_ids_1: list[int] = None
     ) -> list[int]:
         if token_ids_1 is None:
             return [self.cls_token] + token_ids_0 + [self.sep_token]

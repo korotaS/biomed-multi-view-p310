@@ -91,8 +91,7 @@ class OpSmilesToGraph(OpBase):
 
     def __init__(
         self,
-        atom_features: list[str]
-        | None = (
+        atom_features: list[str] = (
             "possible_atomic_num_list",
             "possible_chirality_list",
             "possible_degree_list",
@@ -103,8 +102,7 @@ class OpSmilesToGraph(OpBase):
             "possible_numH_list",
             "_ChiralityPossible",
         ),
-        bond_features: list[str]
-        | None = (
+        bond_features: list[str] = (
             "possible_bonds",
             "possible_bond_dirs",
             "bond_stereo",

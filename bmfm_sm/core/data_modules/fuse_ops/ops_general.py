@@ -80,10 +80,10 @@ class OpReadDataframeBmfm(OpBase):
 
     def __init__(
         self,
-        data: pd.DataFrame | None = None,
-        data_filename: str | None = None,
-        columns_to_extract: list[str] | None = None,
-        rename_columns: dict[str, str] | None = None,
+        data: pd.DataFrame = None,
+        data_filename: str = None,
+        columns_to_extract: list[str] = None,
+        rename_columns: dict[str, str] = None,
         key_name: str = "data.sample_id",
         key_column: str = "sample_id",
     ):
@@ -131,8 +131,8 @@ class OpReadDataframeBmfm(OpBase):
         self._data = df.to_dict(orient="index")
 
     def __call__(
-        self, sample_dict: NDict, prefix: str | None = None, prefix_map: dict = None
-    ) -> None | dict | list[dict]:
+        self, sample_dict: NDict, prefix: str = None, prefix_map: dict = None
+    ) -> list[dict]:
         """
         See base class.
 

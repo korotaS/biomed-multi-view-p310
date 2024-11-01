@@ -251,7 +251,7 @@ class MultiTaskPredictionHead(nn.Module):
 class Parallel(nn.ModuleList):
     """Runs modules in parallel on the same input and merges their results element wise."""
 
-    def __init__(self, *modules: nn.Module, merge: str | Callable = "sum"):
+    def __init__(self, *modules: nn.Module, merge: str = "sum"):
         """
         Runs modules in parallel on the some input and merges their results element wise.
 
@@ -274,7 +274,7 @@ MERGE_METHODS: dict[str, Callable] = {
 }
 
 
-def create_merge(merge: str | Callable) -> Callable:
+def create_merge(merge: str) -> Callable:
     return MERGE_METHODS[merge] if isinstance(merge, str) else merge
 
 

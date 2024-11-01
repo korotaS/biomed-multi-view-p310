@@ -32,8 +32,8 @@ def generate_scaffold(smiles, include_chirality=False):
 
 
 def scaffold_to_smiles(
-    mols: list[str] | list[Chem.Mol], use_indices: bool = False
-) -> dict[str, set[str] | set[int]]:
+    mols: list[str], use_indices: bool = False
+) -> dict[str, set[str]]:
     """
     Computes scaffold for each smiles string and returns a mapping from scaffolds to sets of smiles.
 
