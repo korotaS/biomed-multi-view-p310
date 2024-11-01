@@ -221,6 +221,7 @@ def main(model, dataset_group, split_strategy, dataset, mode, override):
     logging.info(f"Resolved config saved to {resolved_config_path}")
 
     task = Task.init(project_name='Hackathon', task_name=expt_name)
+    task.connect_configuration(config)
 
     cli_args = [mode, "--config", str(resolved_config_path)]
     sys.argv = [sys.argv[0]] + cli_args
