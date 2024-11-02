@@ -182,6 +182,16 @@ class FineTuneLightningModule(pl.LightningModule):
                     },
                 ),
                 (
+                    "prauc",
+                    torchmetrics.AveragePrecision,
+                    {
+                        "task": task,
+                        "num_labels": num_labels,
+                        "average": average,
+                        "ignore_index": -1,
+                    },
+                ),
+                (
                     "precision",
                     torchmetrics.Precision,
                     {
